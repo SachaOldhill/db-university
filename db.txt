@@ -1,0 +1,205 @@
+- Dipartimento
+  nome: VARCHAR(64); NOT NULLABLE
+  materie: VARCHAR(64); NOT NULLABLE
+  uffici: VARCHAR(64); NULLABLE
+  presentazione: TEXT; NULLABLE
+  regolamenti: TEXT; NOT NULLABLE
+  bandi: TEXT; NULLABLE
+  modulistica: TEXT; NOT NULLABLE
+  n_corsi: SMALLINT ; NULLABLE
+- corso di laurea
+  codice: VARCHAR(24); NOT NULLABLE; UNIQUE
+  lingua: VARCHAR(5); DEFAULT(it-IT)
+  tipo: VARCHAR(24); NOT NULLABLE
+  ambito: VARCHAR(24); NOT NULLABLE
+- corso
+  nome: VARCHAR(64); NOT NULLABLE; UNIQUE
+  materie: VARCHAR(64); NOT NULLABLE
+  sede_didattica: VARCHAR(64); NULLABLE (può non esserci una sede fisica)
+  accesso: VARCHAR(24); NOT NULLABLE
+  dipartimento: VARCHAR(64); NOT NULLABLE
+  coordinatore: VARCHAR(24); NOT NULLABLE
+  orari: VARCHAR(24); NOT NULLABLE
+  docenti: VARCHAR(24); NOT NULLABLE
+- insegnante
+  curriculum: TEXT; NOT NULLABLE
+  email: VARCHAR(128) ; NOT NULLABLE ; UNIQUE
+  nome: VARCHAR(64) ; NOT NULLABLE
+  cognome: VARCHAR(64) ; NOT NULLABLE
+  indirizzo: VARCHAR ; NULLABLE
+  n_tel: VARCHAR(32) ; NULLABLE
+  data_nascita: DATE ; NOT NULLABLE
+  luogo_nascita: VARCHAR(64) ; NOT NULLABLE
+  cf: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+  genere: VARCHAR(16) ; NOT NULLABLE
+  data_assunzione: DATE ; NOT NULLABLE
+  turno: VARCHAR(128) ; NOT NULLABLE
+  ricevimento: VARCHAR(128) ; NOT NULLABLE
+  materia: VARCHAR(32) ; NOT NULLABLE
+  salario: INT ; NOT NULLABLE
+  tipo_contratto: VARCHAR(64) ; NOT NULLABLE
+  foto: VARCHAR ; NULLABLE
+  genere: VARCHAR(16) ; NULLABLE
+- appello
+  data: VARCHAR(32) ; NOT NULLABLE
+  luogo: VARCHAR(64) ; NOT NULLABLE
+  docente: VARCHAR(64) ; NOT NULLABLE
+  materia: VARCHAR(64) ; NOT NULLABLE
+  cfu: VARCHAR(64) ; NOT NULLABLE
+- studente
+  cfu: TINYINT; NOT NULLABLE
+  email: VARCHAR(128) ; NOT NULLABLE ; UNIQUE
+  tipo_documento: VARCHAR(16) ; NOT NULLABLE
+  n_documento: VARCHAR(32) ; NOT NULLABLE ; UNIQUE
+  n_matricola: VARCHAR(32) ; NOT NULLABLE ; UNIQUE
+  nome: VARCHAR(64) ; NOT NULLABLE
+  cognome: VARCHAR(64) ; NOT NULLABLE
+  corso: VARCHAR(32) ; NOT NULLABLE
+  dipartimento: VARCHAR(32) ; NOT NULLABLE
+  isee: INT ; NULLABLE
+  n_tel: VARCHAR(32) ; NULLABLE
+  data_nascita: DATE ; NOT NULLABLE
+  luogo_nascita: VARCHAR(64) ; NOT NULLABLE
+  cf: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+  genere: VARCHAR(16) ; NOT NULLABLE
+- esito
+  voto: TINYINT; NOT NULLABLE
+  data: DATE ; NOT NULLABLE
+  luogo: VARCHAR(64) ; NOT NULLABLE
+  insegnante: VARCHAR(64) ; NOT NULLABLE
+  cfu: TINYINT; NOT NULLABLE
+
+
+
+
+
+
+
+
+
+Biblioteca
+- Libro
+titolo: VARCHAR(128) ; NOT NULLABLE
+edizione: SMALLINT ; NULLABLE
+autore: VARCHAR(128) ; NULLABLE
+editore: VARCHAR(128) ; NULLABLE
+dataPubblicazione: DATE ; NULLABLE
+genere: VARCHAR(32) ; NOT NULLABLE
+quantita': INT ; DEFAULT(0)
+posizione: VARCHAR(128) ; NULLABLE
+posterCopertina: VARCHAR ; DEFAULT('poster_undefined.jpg')
+prezzo: SMALLINT ; NOT NULLABLE
+isbn: VARCHAR(17) ; NULLABLE
+sinopsi: TEXT ; NULLABLE
+numeroPagine: SMALLINT ; NOT NULLABLE
+formato: VARCHAR(16) ; NOT NULLABLE
+rating: TINYINT ; DEFAULT(0)
+condizione: TINYINT ; DEFAULT(0)
+lingua: VARCHAR(5) ; DEFAULT('it-IT')
+- User
+username: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+password: VARCHAR(64) ; NOT NULLABLE
+email: VARCHAR(128) ; NOT NULLABLE ; UNIQUE
+tipo_documento: VARCHAR(16) ; NOT NULLABLE
+n_documento: VARCHAR(32) ; NOT NULLABLE ; UNIQUE
+n_tessera: VARCHAR(5) ; NOT NULLABLE ; UNIQUE
+nome: VARCHAR(64) ; NOT NULLABLE
+cognome: VARCHAR(64) ; NOT NULLABLE
+indirizzo: VARCHAR ; NOT NULLABLE
+n_tel: VARCHAR(32) ; NULLABLE
+data_nascita: DATE ; NOT NULLABLE
+luogo_nascita: VARCHAR(64) ; NOT NULLABLE
+cf: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+genere: VARCHAR(16) ; NOT NULLABLE
+- Employee
+username: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+password: VARCHAR(64) ; NOT NULLABLE
+email: VARCHAR(128) ; NOT NULLABLE ; UNIQUE
+nome: VARCHAR(64) ; NOT NULLABLE
+cognome: VARCHAR(64) ; NOT NULLABLE
+indirizzo: VARCHAR ; NOT NULLABLE
+n_tel: VARCHAR(32) ; NULLABLE
+data_nascita: DATE ; NOT NULLABLE
+luogo_nascita: VARCHAR(64) ; NOT NULLABLE
+cf: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+genere: VARCHAR(16) ; NOT NULLABLE
+data_assunzione: DATE ; NOT NULLABLE
+turno: VARCHAR(128) ; NULLABLE
+ruolo: VARCHAR(32) ; NOT NULLABLE
+salario: INT ; NOT NULLABLE
+tipo_contratto: VARCHAR(64) ; NOT NULLABLE
+foto: VARCHAR ; NOT NULLABLE
+
+
+E-commerce
+- Cliente
+username: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+password: VARCHAR(64) ; NOT NULLABLE
+email: VARCHAR(128) ; NOT NULLABLE ; UNIQUE
+nome: VARCHAR(64) ; NOT NULLABLE
+cognome: VARCHAR(64) ; NOT NULLABLE
+indirizzo: VARCHAR ; NOT NULLABLE
+n_tel: VARCHAR(32) ; NULLABLE
+data_nascita: DATE ; NOT NULLABLE
+luogo_nascita: VARCHAR(64) ; NOT NULLABLE
+bonus: VARCHAR(64) ; NULLABLE
+- Ordine
+n_ordine: INT ; AUTO_INCREMENTS ; UNIQUE
+indirizzo_spedizione: VARCHAR(128) ; NOT NULLABLE
+indirizzo_fatturazione: VARCHAR(128) ; NULLABLE
+mittente: VARCHAR(128) ; NOT NULLABLE
+data_acquisto: DATE ; DEFAULT(NOW())
+data_arrivo_attesa: DATE ; NOT NULLABLE
+corriere: VARCHAR(128) ; NOT NULLABLE
+- Pagamento
+tipo: VARCHAR(64) ; NOT NULLABLE
+identificativo: VARCHAR(32) ; NOT NULLABLE
+saldo_totale: INT ; NOT NULLABLE
+valuta: VARCHAR(16) ; NOT NULLABLE
+data_pagamento: DATETIME ; NULLABLE
+stato: VARCHAR(16) ; NOT NULLABLE
+- Impiegato
+username: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+password: VARCHAR(64) ; NOT NULLABLE
+email: VARCHAR(128) ; NOT NULLABLE ; UNIQUE
+nome: VARCHAR(64) ; NOT NULLABLE
+cognome: VARCHAR(64) ; NOT NULLABLE
+indirizzo: VARCHAR ; NOT NULLABLE
+n_tel: VARCHAR(32) ; NULLABLE
+data_nascita: DATE ; NOT NULLABLE
+luogo_nascita: VARCHAR(64) ; NOT NULLABLE
+cf: VARCHAR(64) ; NOT NULLABLE ; UNIQUE
+genere: VARCHAR(16) ; NOT NULLABLE
+data_assunzione: DATE ; NOT NULLABLE
+turno: VARCHAR(128) ; NULLABLE
+ruolo: VARCHAR(32) ; NOT NULLABLE
+salario: INT ; NOT NULLABLE
+tipo_contratto: VARCHAR(64) ; NOT NULLABLE
+foto: VARCHAR ; NOT NULLABLE
+- Prodotto
+codice: VARCHAR(32) ; NOT NULLABLE
+quantita: INT ; DEFAULT(0)
+tags: VARCHAR ; NOT NULLABLE
+cateogria: VARCHAR(128) ; NOT NULLABLE
+prezzo: INT ; NOT NULLABLE
+prezzo_reale: INT ; NOT NULLABLE
+dimensione: VARCHAR(64) ; NOT NULLABLE
+peso: INT ; NOT NULLABLE
+attributi: VARCHAR(128) ; NULLABLE
+colore: VARCHAR(128) ; NULLABLE
+rating: TINYINT ; DEFAULT(0)
+titolo: VARCHAR(128) ; NOT NULLABLE
+descrizione: TEXT ; NOT NULLABLE
+pagina_vendita: MEDIUMTEXT ; NOT NULLABLE
+luogo: VARCHAR(128) ; NOT NULLABLE
+- Coupon
+tags_valido: VARCHAR ; NOT NULLABLE
+sconto: TINYINT ; NOT NULLABLE
+data_inizio: DATETIME ; NOT NULLABLE
+data_fine: DATETIME ; NOT NULLABLE
+codice: VARCHAR(32) ; NOT NULLABLE
+link: VARCHAR ; NOT NULLABLE
+titolo: VARCHAR(128) ; NOT NULLABLE
+descrizione: TEXT ; NOT NULLABLE
+immagine: VARCHAR(128) ; NOT NULLABLE
+restrizioni: VARCHAR(128) ; NOT NULLABLE
